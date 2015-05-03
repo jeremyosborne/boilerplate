@@ -1,0 +1,82 @@
+1) You need an amazon account, which I believe needs to be qualified to work for amazon web services. Try logging in at 
+
+http://aws.amazon.com/ 
+
+to see if your amazon account already works.
+
+
+
+2) Once you have an account, follow the steps in this guide. The guide is very, very good: 
+
+http://www.nczonline.net/blog/2011/07/21/quick-and-dirty-spinning-up-a-new-ec2-web-server-in-five-minutes/
+
+2a) When creating the security group, also open up TCP ports 8000-8999 to allow for students to host node.js apps (like mojito).
+
+2b) It's not overly obvious from Nicholas's guide above, but the keyfile that you download is a private key file. You want to keep it safe, don't hand it out. The usual storage location is within your home directory's .ssh/ folder. When you store it in this folder, you will likely want to change the permissions on the key with a command like 
+
+chmod 600 ~/.ssh/Keyfile.pem
+
+2c) When you run the ssh command that he mentions in the article, you want to run it with a direct reference to your key file, which is not immediately apparent if you aren't used to using ssh. For example, if your keyfile is named MobileWebDev.pem and you placed it in your ~/.ssh/ directory as suggested above, the command will look like:
+
+ssh -i ~/.ssh/MobileWebDev.pem ec2-user@ec2-23-22-232-235.compute-1.amazonaws.com
+# or with an ubuntu instance
+ssh-add ~/.ssh/jeremyosbornedotcom
+ssh ubuntu@ec2-54-80-91-143.compute-1.amazonaws.com
+
+
+3) Once you've followed the guide and can login to the server, when logged in follow these instructions: 
+
+http://www.nczonline.net/blog/2011/11/18/setting-up-multi-user-apache-on-ec2/
+
+3a) Let's change the document root to the ec2-user account to make management of the documents easier.
+    # make our doc root
+    mkdir www
+    # Load up the configuration file
+    sudo vi /etc/httpd/conf/httpd.conf
+    # Find the following section and make the change:
+        #
+        # DocumentRoot: The directory out of which you will serve your
+        # documents. By default, all requests are taken from this directory, but
+        # symbolic links and aliases may be used to point to other locations.
+        #
+        #DocumentRoot "/var/www/html"
+        DocumentRoot "/home/ec2-user/www"
+    # kickstart apache
+    sudo service httpd reload
+
+3b) The default way to ssh into the system disallows password login. To change this so that users can login, follow the instructions below:
+
+# Open up the file in a text editor, something like
+sudo vi /etc/ssh/sshd_config
+
+# once inside of the file, search for the following line
+PasswordAuthentication no
+# and change to
+PasswordAuthentication yes
+
+# after saving the file,
+# from the command line run
+sudo service sshd restart
+
+3c) Instead of using the script provided at the setting-up-multi-user-apache-on-ec2 blog post, upload and run the following script instead:
+
+makeuser.sh
+
+This will automatically make 20 users and give them all the same password. Highly insecure, but easy to manage for the class.
+
+
+
+4) INSTALLING NODE.JS & MOJITO
+
+Using information from this link:
+    https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+
+Copying the info above here for reference, run the following commands:
+    # First install the repository
+    sudo yum localinstall --nogpgcheck http://nodejs.tchol.org/repocfg/amzn1/nodejs-stable-release.noarch.rpm  
+
+    # Then install the packages:
+    sudo yum install nodejs-compat-symlinks npm
+
+    # Then install mojito
+    sudo npm install -g mojito
