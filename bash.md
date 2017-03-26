@@ -17,6 +17,19 @@ Date in a file name
 zip -r folder_`date +"%Y_%m_%d"`.zip folder
 ```
 
+Rename with last modified date in filename
+
+```bash
+for f in *; do mv -- "$f" "$f-$(date -r "$f" +%Y%m%d)"; done
+```
+
+Rename filename to last modified date
+
+```bash
+for f in *; do mv -- "$f" "$(date -r "$f" +%Y%m%d)"; done
+```
+
+
 Directory of script
 
 ```bash
