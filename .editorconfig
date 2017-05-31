@@ -18,7 +18,10 @@ indent_size = 4
 [*.py]
 indent_size = 4
 
-[*.{jsx,js}]
+[{.babelrc,.editorconfig,.eslintrc,.stylelintrc}]
+indent_size = 2
+
+[*.{jsx,js,json}]
 indent_size = 2
 
 [Makefile]
