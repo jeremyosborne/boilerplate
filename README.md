@@ -1,10 +1,8 @@
-# scripts
+# scripts and boilerplate
 
 Various scripts, configs, partials, and random code that I find useful in my projects.
 
-## Boilerplate
-
-### Atom
+## Atom
 
 ```bash
 apm install \
@@ -24,7 +22,7 @@ apm install \
     `# All done.`
 ```
 
-### CSS Modules (in react with scss)
+## CSS Modules (in react with scss)
 
 ```bash
 npm install --save-dev \
@@ -94,7 +92,7 @@ Modifications to `webpack.config.js`:
 
 Make use of [.postcssrc.js](./postcssrc.js).
 
-### ESlint
+## ESlint
 
 [JavaScript Standard Style](http://standardjs.com/) as a basis with personal preferences and the ease of use with eslint itself:
 
@@ -131,3 +129,38 @@ eslint "src/**/*.js?(x)"
 ```
 
 Recommend keeping `.eslintrc` file named as is as it seems certain tools still only look for that name.
+
+## Mac
+
+* Install command line tools with `xcode-select --install`.
+* [Install homebrew](https://brew.sh/).
+* [Setup terminal style](./jeremy.terminal).
+* [Copy over .vimrc](./vimrc).
+
+```bash
+brew doctor
+
+brew install \
+    bash-completion `# tab completion++` \
+    dos2unix `# Convert line endings in a text file.` \
+    heroku `# Heroku client.` \
+    node `# Node.js.` \
+    nvm `# Manage version of node on system.` \
+    pipenv `# Pip + virtualenv combined.` \
+    pandoc `# Convert documents from one filetype to another.` \
+    python \
+    python3 \
+    ruby \
+    `# All done.`
+```
+
+* `vi ~/.bash_profile` then:
+
+```bash
+# colorized ls
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+# Recursively remove annoying things.
+alias rmNUKE="find . -name '*.DS_Store' -type f -delete; find . -name 'node_modules' -type d -exec rm -rf {} +; find . -name '*.pyc' -type f -delete; find . -name '*.class' -type f -delete"
+```

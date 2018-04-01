@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#
+# Convert flip camera videos to more friendly youtube format.
+#
 
 for f in *.[Mm][Pp]4; do
     ffmpeg -i $f -c:v libx264 -preset slow -crf 23 -c:a copy -threads 0 -pix_fmt yuv420p `stat -f %Sm -t %Y%m%d_%H%M%S $f`.mkv;
