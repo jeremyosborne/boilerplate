@@ -8,22 +8,20 @@ Various scripts, configs, partials, and random code that I find useful in my pro
 
 ```bash
 apm install \
-    atom-beautify \
-    atom-handlebars \
-    docblockr \
-    editorconfig \
-    file-icons \
-    git-diff-details \
-    language-babel \
-    linter \
-    linter-eslint \
-    linter-stylelint \
-    markdown-pdf \
-    merge-conflicts \
-    open-in-browser \
-    script \
-    tree-view-git-status \
-    `# all done`
+    atom-beautify `# Auto-prettification for a lot of formats.` \
+    atom-handlebars `# Support for handlebars templating.` \
+    docblockr `# Semi-intelligent comment auto-propagation.` \
+    editorconfig `# Atom integration of .editorconfig.` \
+    file-icons `# Detect and identify file types by icon in the tree view.` \
+    language-babel `# Auto formatting and interpration of ES* feature (and JSX).` \
+    linter `# Generic linter engine with support for multiple languages (install language packs separately).` \
+    linter-eslint `# Support eslint for JavaScript.` \
+    linter-stylelint `# Support stylelint for (S)CSS.` \
+    open-in-browser `# Shortcut key support to launch a page in the browser.` \
+    platformio-ide-terminal `# Integrated terminal that pulls in environment.` \
+    script `# Run open file as script, or a portion of the file.` \
+    tree-view-git-status `# Info in tree view (haven't testing if this is still necessary with recent git integration).` \
+    `# All done.`
 ```
 
 ### CSS Modules (in react with scss)
