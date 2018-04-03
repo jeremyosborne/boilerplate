@@ -143,6 +143,7 @@ brew doctor
 brew install \
     bash-completion `# tab completion++` \
     dos2unix `# Convert line endings in a text file.` \
+    git `# Let brew manage git.` \
     heroku `# Heroku client.` \
     node `# Node.js.` \
     nvm `# Manage version of node on system.` \
@@ -163,4 +164,22 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 # Recursively remove annoying things.
 alias rmNUKE="find . -name '*.DS_Store' -type f -delete; find . -name 'node_modules' -type d -exec rm -rf {} +; find . -name '*.pyc' -type f -delete; find . -name '*.class' -type f -delete"
+
+# bash completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
+  . $(brew --prefix)/etc/bash_completion.d/git-completion.bash
+fi
+if [ -f `brew --prefix`/etc/bash_completion.d/git-flow-completion.bash ]; then
+  . `brew --prefix`/etc/bash_completion.d/git-flow-completion.bash
+fi
+# git completion, requires completion to be loaded from above
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWCOLORHINTS=true
+# no get git colors
+# export PS1='[\u@mbp \w$(__git_ps1)]\$ '
+# get git colors
+PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\$ "'
 ```
