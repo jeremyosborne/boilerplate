@@ -2,6 +2,15 @@
 
 Various scripts, configs, partials, and random code that I find useful in my projects.
 
+- [Atom](#atom)
+- [CSS Modules (in react with scss)](#css-modules-in-react-with-scss)
+- [ESlint](#eslint)
+- [Mac](#mac)
+  * [brew](#brew)
+  * [.bash_profile additions](#bash_profile-additions)
+- [Markdown](#markdown)
+  * [Table of Contents generation](#table-of-contents-generation)
+
 ## Atom
 
 ```bash
@@ -132,6 +141,8 @@ Recommend keeping `.eslintrc` file named as is as it seems certain tools still o
 
 ## Mac
 
+### brew
+
 * Install command line tools with `xcode-select --install`.
 * [Install homebrew](https://brew.sh/).
 * [Setup terminal style](./jeremy.terminal).
@@ -155,7 +166,7 @@ brew install \
     `# All done.`
 ```
 
-* `vi ~/.bash_profile` then:
+### .bash_profile additions
 
 ```bash
 # colorized ls
@@ -182,4 +193,17 @@ GIT_PS1_SHOWCOLORHINTS=true
 # export PS1='[\u@mbp \w$(__git_ps1)]\$ '
 # get git colors
 PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\$ "'
+```
+
+## Markdown
+
+### Table of Contents generation
+
+```bash
+npm install -g markdown-toc
+
+# then... (the echo is for better copy-paste)
+markdown-toc README.md --no-firsth1 && echo ""
+
+# copy paste back into markdown file
 ```
