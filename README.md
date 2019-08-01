@@ -137,7 +137,7 @@ necessary to trigger string being treated as glob expression:
 eslint "src/**/*.js?(x)"
 ```
 
-Recommend keeping `.eslintrc` file named as is as it seems certain tools still only look for that name.
+Recommend keeping `.eslintrc` file named as is as it seems certain tools still only look for that name (not sure this is relevant anymore, probably can remove this rule).
 
 ## Mac
 
