@@ -1,5 +1,7 @@
 # JavaScript - Single purpose module
 
+Inspiration and blatant stealing from: http://dev.topheman.com/package-a-module-for-npm-in-commonjs-es2015-umd-with-babel-and-rollup/
+
 For modules built to be shared with other projects and not used on their own. No JSX, just JavaScript.
 
 Assumptions:
