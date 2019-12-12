@@ -3,8 +3,10 @@
 Various scripts, configs, partials, and random code that I find useful in my projects.
 
 - [Atom](#atom)
+- [Babel](#babel)
 - [CSS Modules (in react with scss)](#css-modules-in-react-with-scss)
 - [ESlint](#eslint)
+- [Lerna](#lerna)
 - [Mac](#mac)
   * [brew](#brew)
   * [.bash_profile additions](#bash_profile-additions)
@@ -17,19 +19,31 @@ Various scripts, configs, partials, and random code that I find useful in my pro
 apm install \
     atom-beautify `# Auto-prettification for a lot of formats.` \
     atom-handlebars `# Support for handlebars templating.` \
+    blame `# git blame` \
     docblockr `# Semi-intelligent comment auto-propagation.` \
     editorconfig `# Atom integration of .editorconfig.` \
     file-icons `# Detect and identify file types by icon in the tree view.` \
+    git-diff-details `# git diff files` \
     language-babel `# Auto formatting and interpration of ES* feature (and JSX).` \
+    language-docker `# docker syntax highlighting` \
     linter `# Generic linter engine with support for multiple languages (install language packs separately).` \
     linter-eslint `# Support eslint for JavaScript.` \
     linter-stylelint `# Support stylelint for (S)CSS.` \
+    markdown-pdf `# convert markdown to an image within atom` \
+    merge-conflicts `# for git conflicts` \
     open-in-browser `# Shortcut key support to launch a page in the browser.` \
-    platformio-ide-terminal `# Integrated terminal that pulls in environment.` \
     script `# Run open file as script, or a portion of the file.` \
+    sort-lines `# ascending order sort lines of text` \
+    tabs-to-spaces `# for those times when you need to clean up mixed spacing files` \
     tree-view-git-status `# Info in tree view (haven't testing if this is still necessary with recent git integration).` \
     `# All done.`
 ```
+
+## Babel
+
+### for a single purpose JavaScript module
+
+See the [template for a single purpose module](./template-js-single-purpose-module).
 
 ## CSS Modules (in react with scss)
 
@@ -139,6 +153,39 @@ eslint "src/**/*.js?(x)"
 
 Recommend keeping `.eslintrc` file named as is as it seems certain tools still only look for that name (not sure this is relevant anymore, probably can remove this rule).
 
+## Lerna
+
+See the [lerna readme](https://github.com/lerna/lerna) for startup.
+
+Organization of `packages/`
+
+* Packages assume code will be transpiled.
+* Transpiled code goes in `lib`.
+* `package.json` `main` field points to `lib/index.js`.
+* `package.json` `scripts` assumed to be included are:
+    * `build` which performs code transpiling,
+    * `prepare` which references `build` and is automagically used by `lerna` during linking.
+* `lib` is `.gitignore`d at root lerna level.
+* Each package contains a `.npmignore` file that overrides the `.gitignore` of `lib` and handles the `npm prepare`.
+
+Create a new package:
+
+* Copy files to subfolder of `packages`. Nothing more to it than that (?).
+* Package isn't yet used.
+
+Include local package as part of another package:
+
+```bash
+# Adding `counter` to `core`
+lerna add counter --scope=core
+```
+
+Make sure everything has the dependencies it needs
+
+```bash
+lerna bootstrap --hoist
+```
+
 ## Mac
 
 ### brew
@@ -160,7 +207,6 @@ brew install \
     nvm `# Manage version of node on system.` \
     pipenv `# Pip + virtualenv combined.` \
     pandoc `# Convert documents from one filetype to another.` \
-    python \
     python3 \
     ruby \
     `# All done.`

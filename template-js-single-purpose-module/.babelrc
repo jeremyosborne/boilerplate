@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "lodash",
+  ],
+  "env": {
+    "commonjs": {
+      "presets": [
+        ["@babel/preset-env", {
+          "modules": "commonjs",
+          "useBuiltIns": false,
+        }],
+      ],
+    },
+    "es": {
+      "presets": [
+        ["@babel/preset-env", {
+          "modules": false,
+          "useBuiltIns": false,
+        }],
+      ],
+    },
+    "umd": {
+      "plugins": ["@babel/plugin-transform-modules-umd"],
+      "presets": [
+        ["@babel/preset-env", {
+          "modules": "umd",
+          "useBuiltIns": false,
+        }],
+      ],
+    },
+  },
+}
