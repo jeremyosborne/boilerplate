@@ -2,7 +2,7 @@
 
 Inspiration and blatant stealing from: http://dev.topheman.com/package-a-module-for-npm-in-commonjs-es2015-umd-with-babel-and-rollup/
 
-For modules built to be shared with other projects and not used on their own. No JSX, just JavaScript.
+For non-React modules built to be shared with other projects and ~~not~~ rarely used on their own.
 
 Assumptions:
 
@@ -52,7 +52,7 @@ npm install --save-dev \
     @babel/plugin-proposal-class-properties `# personal preference` \
     @babel/plugin-proposal-class-properties `# personal preference` \
     @babel/preset-env `# standard way to support es features` \
-    @babel/preset-flow `# I like the opt in flavor of flow over typescript` \
+    @babel/preset-flow `# I have been using flow, will be switching to type-defs + JavaScript.` \
     babel-plugin-lodash `# make lodash import less heavy as we don't assume consumer has lodash` \
     `# monolithic build specific` \
     rollup `# combines into a monolithic build` \
