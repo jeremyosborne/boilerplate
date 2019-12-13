@@ -49,6 +49,7 @@ npm install --save-dev \
     `# babel specific` \
     @babel/cli `# prefer usage from the command line` \
     @babel/core `# needed for all things babel` \
+    @babel/node `# for those times I need babel-node` \
     @babel/plugin-proposal-class-properties `# personal preference` \
     @babel/plugin-proposal-class-properties `# personal preference` \
     @babel/preset-env `# standard way to support es features` \
@@ -67,7 +68,7 @@ npm install --save-dev \
 
 Merge the following to your `package.json`:
 
-```bash
+```json
 {
     "browser": "dist/monolithic-iife/index.js",
     "main": "dist/commonjs/index.js",
@@ -85,8 +86,102 @@ Merge the following to your `package.json`:
 }
 ```
 
-See [.babelrc](./.babelrc) for the config file used by babel in our scripts.
+Include [.babelrc](./.babelrc) for the config file used by babel in our scripts.
 
-See [.npmignore](./.npmignore) for a file that should work for packaging our files (since `npm` makes use `.gitignore` if this file does not exist).
+Include [.npmignore](./.npmignore) for a file that should work for packaging our files (since `npm` makes use `.gitignore` if this file does not exist).
 
-See [.rollup.config.js](./.rollup.config.js) for assumed rollup config file used in `build:monolithic`.
+include [.rollup.config.js](./.rollup.config.js) for assumed rollup config file used in `build:monolithic`.
+
+## ESLinting
+
+Install dev dependencies:
+
+```bash
+npm install --save-dev \
+    eslint `# linter module and cli` \
+    babel-eslint `# hook into babel` \
+    eslint-config-standard `# based on js standard` \
+    eslint-plugin-flowtype `# handle flow types` \
+    eslint-plugin-import `# check for valid imports` \
+    eslint-plugin-node `# nodejs recommendations` \
+    eslint-plugin-promise `# promise styling` \
+    eslint-plugin-standard `# plugin for standard style` \
+    `# end`
+```
+
+Include [.eslintrc](./.eslintrc).
+
+Merge the following to your `package.json`:
+
+```json
+{
+    "scripts": {
+        "lint": "eslint \"src/**/*.js?(x)\""
+    }
+}
+```
+
+## Flow
+
+Install dev dependencies (flow stripper should be included in babel):
+
+```bash
+npm install --save-dev \
+    flow-bin `# for all you typescript needs... just kidding ;)` \
+    `# end`
+```
+
+Merge the following to your `package.json`:
+
+```json
+{
+    "scripts": {
+        "flow": "flow"
+    }
+}
+```
+
+## Testing (with Jest)
+
+Install dev dependencies:
+
+```bash
+npm install --save-dev \
+    jest `# test tool + cli executable` \
+    babel-jest `# run code through babel` \
+    `# end`
+```
+
+Merge the following to your `package.json`:
+
+```json
+{
+    "scripts": {
+        "test": "cross-env NODE_ENV=commonjs jest --config .jest.config.js"
+    }
+}
+```
+
+Include [.jest.config.js](./.jest.config.js). (Non-standard file name to hide config files from normal `ls` views).
+
+## git hooks
+
+Install dev dependencies:
+
+```bash
+npm install --save-dev \
+    husky@next `# at the time of writing, future version still better.` \
+    `# end`
+```
+
+Merge the following to your `package.json`. Note the following assumes you have done all of the above, including `flow`. Prune as necessary.
+
+```json
+{
+    "husky": {
+        "hooks": {
+            "pre-push": "npm run lint && npm run flow && npm test"
+        }
+    }
+}
+```
