@@ -51,7 +51,7 @@ npm install --save-dev \
     @babel/core `# needed for all things babel` \
     @babel/node `# for those times I need babel-node` \
     @babel/plugin-proposal-class-properties `# personal preference` \
-    @babel/plugin-proposal-class-properties `# personal preference` \
+    @babel/plugin-transform-modules-umd `# for umd builds` \
     @babel/preset-env `# standard way to support es features` \
     @babel/preset-flow `# I have been using flow, will be switching to type-defs + JavaScript.` \
     babel-plugin-lodash `# make lodash import less heavy as we don't assume consumer has lodash` \
