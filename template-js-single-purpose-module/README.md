@@ -157,12 +157,44 @@ Merge the following to your `package.json`:
 ```json
 {
     "scripts": {
-        "test": "cross-env NODE_ENV=commonjs jest --config .jest.config.js"
+        "test:command": "cross-env NODE_ENV=commonjs jest `# Core command to kick off jest with correct babel setting.`",
+        "test:developer": "npm run test:command -- --bail=1 --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=text-summary `# Standard developer test, minimal to be run for code checkin.`",
+        "test": "npm run test:developer `# Default test command is for developers. Automation will use other tests.`"
     }
 }
 ```
 
-Include [.jest.config.js](./.jest.config.js). (Non-standard file name to hide config files from normal `ls` views).
+### Continuous Integration (with CircleCI) + Lerna package
+
+Assumptions:
+
+* [CircleCI](https://circleci.com/) continuous integration is kicked off at the top level package, not the sub-packages.
+* The container package will collect the tests reports.
+* The container package will declare directories for test reports that the sub-packages should copy data to via env vars.
+* The sub-packages will run tests and, using the env vars, place test results, correctly named and namespaced, in the upper container.
+    * This is due to some seeming trickiness and lost data when passing multiple levels of env vars + reassignment via `npm`.
+
+Merge the following to your top level `package.json`:
+
+```json
+{
+    "scripts": {
+        "test:ci": "cross-env UNIT_TEST_OUTPUT_DIR=\"$PWD/test-reports\" COVERAGE_OUTPUT_DIR=\"$PWD/test-coverage\" lerna run test:ci `# Run the generic test command in all packages. Pass generic options down to projects.`"
+    }
+}
+```
+
+Merge the following to your package's `package.json`:
+
+```json
+{
+    "scripts": {
+        "test:ci": "cross-env-shell JEST_JUNIT_OUTPUT_DIR=\"$UNIT_TEST_OUTPUT_DIR/$npm_package_name\" JEST_JUNIT_OUTPUT_NAME=\"results.xml\" npm run test:command -- --coverageDirectory=\"$COVERAGE_OUTPUT_DIR/$npm_package_name\" --bail=1 --reporters=default --reporters=jest-junit --coverage --coverageReporters=text --coverageReporters=text-summary --coverageReporters=lcov `# To be run by a parent script that dictates where the test-report folder belongs. We expect options to be passed in except for the rare exception we must provide unique information.`"
+    }
+}
+```
+
+Launch the tests during the continuous integration process with `npm run test:ci`.
 
 ## git hooks
 
